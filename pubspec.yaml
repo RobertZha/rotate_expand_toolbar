@@ -1,7 +1,7 @@
 name: rotate_expand_toolbar
 description: "rotate expand toolbar"
 version: 0.0.1
-homepage:
+homepage: https://github.com/RobertZha/rotate_expand_toolbar.git
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
