@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
             RotateExpandToolbar(
               expandDuration: const Duration(milliseconds: 500),
               color: Colors.blue,
+              backgroundColor: Colors.yellow,
               iconSize: 24,
               children: [
                 RotateExpandToolbarItem(

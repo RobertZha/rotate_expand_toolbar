@@ -9,6 +9,7 @@ class RotateExpandToolbar extends StatefulWidget {
     this.expandIcon,
     this.iconSize = 32,
     this.color,
+    this.backgroundColor,
     this.space = 8,
     this.expandDuration = const Duration(milliseconds: 500),
     required this.children,
@@ -17,6 +18,7 @@ class RotateExpandToolbar extends StatefulWidget {
   IconData? expandIcon;
   double iconSize;
   Color? color;
+  Color? backgroundColor;
   double space;
   Duration expandDuration;
   List<RotateExpandToolbarItem> children;
@@ -78,7 +80,17 @@ class RotateExpandToolbarState extends State<RotateExpandToolbar>
               minHeight: widget.iconSize,
               maxWidth: widget.iconSize,
               maxHeight: widget.iconSize),
-          icon: Icon(widget.expandIcon ?? Icons.arrow_circle_right_outlined),
+          icon: Container(
+            width: widget.iconSize,
+            height: widget.iconSize,
+            decoration: BoxDecoration(
+              color: widget.backgroundColor ?? Colors.transparent,
+              borderRadius: BorderRadius.circular(widget.iconSize / 2),
+            ),
+            child: Icon(
+              widget.expandIcon ?? Icons.arrow_circle_right_outlined,
+            ),
+          ),
           iconSize: widget.iconSize,
           color: widget.color,
           onPressed: () {
@@ -112,6 +124,7 @@ class RotateExpandToolbarState extends State<RotateExpandToolbar>
             icon: item.icon,
             iconSize: widget.iconSize,
             color: item.color ?? widget.color,
+            backgroundColor: item.backgroundColor ?? widget.backgroundColor,
             space: widget.space,
           );
 
@@ -135,6 +148,7 @@ class RotateExpandToolbarState extends State<RotateExpandToolbar>
             icon: item.icon,
             iconSize: widget.iconSize,
             color: item.color ?? widget.color,
+            backgroundColor: item.backgroundColor ?? widget.backgroundColor,
             space: widget.space,
             tooltip: item.tooltip,
             onTap: item.onTap,
@@ -160,9 +174,14 @@ class RotateExpandToolbarState extends State<RotateExpandToolbar>
 
 class RotateExpandToolbarItem {
   RotateExpandToolbarItem(
-      {required this.icon, this.color, this.tooltip, required this.onTap});
+      {required this.icon,
+      this.color,
+      this.backgroundColor,
+      this.tooltip,
+      required this.onTap});
   IconData icon;
   Color? color;
+  Color? backgroundColor;
   String? tooltip;
   Function() onTap;
 }
@@ -174,6 +193,7 @@ class RotateExpandToolbarItemAnimationWidget extends StatefulWidget {
     required this.icon,
     this.iconSize = 32,
     this.color,
+    this.backgroundColor,
     this.space = 8,
   });
 
@@ -193,6 +213,7 @@ class RotateExpandToolbarItemAnimationWidget extends StatefulWidget {
   IconData icon;
   double iconSize;
   Color? color;
+  Color? backgroundColor;
 
   RotateExpandToolbarItemAnimationWidgetState? _state;
   void setState(RotateExpandToolbarItemAnimationWidgetState value) {
@@ -251,17 +272,25 @@ class RotateExpandToolbarItemAnimationWidgetState
         padding: EdgeInsets.fromLTRB(widget.space, 0, 0, 0),
         child: RotationTransition(
           turns: _manualAnimation,
-          child: IconButton(
-            padding: EdgeInsets.zero,
-            constraints: BoxConstraints(
-                minWidth: widget.iconSize,
-                minHeight: widget.iconSize,
-                maxWidth: widget.iconSize,
-                maxHeight: widget.iconSize),
-            icon: Icon(widget.icon),
-            iconSize: widget.iconSize,
-            color: widget.color,
-            onPressed: () {},
+          child: Container(
+            width: widget.iconSize,
+            height: widget.iconSize,
+            decoration: BoxDecoration(
+              color: widget.backgroundColor ?? Colors.transparent,
+              borderRadius: BorderRadius.circular(widget.iconSize / 2),
+            ),
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              constraints: BoxConstraints(
+                  minWidth: widget.iconSize,
+                  minHeight: widget.iconSize,
+                  maxWidth: widget.iconSize,
+                  maxHeight: widget.iconSize),
+              icon: Icon(widget.icon),
+              iconSize: widget.iconSize,
+              color: widget.color,
+              onPressed: () {},
+            ),
           ),
         ),
       ),
@@ -282,6 +311,7 @@ class RotateExpandToolbarItemWidget extends StatefulWidget {
     required this.icon,
     this.iconSize = 32,
     this.color,
+    this.backgroundColor,
     this.space = 8,
     this.tooltip,
     required this.onTap,
@@ -290,6 +320,7 @@ class RotateExpandToolbarItemWidget extends StatefulWidget {
   IconData icon;
   double iconSize;
   Color? color;
+  Color? backgroundColor;
   String? tooltip;
   Function() onTap;
 
@@ -313,24 +344,32 @@ class RotateExpandToolbarItemWidgetState
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(widget.space, 0, 0, 0),
-      child: IconButton(
-        padding: EdgeInsets.zero,
-        constraints: BoxConstraints(
-            minWidth: widget.iconSize,
-            minHeight: widget.iconSize,
-            maxWidth: widget.iconSize,
-            maxHeight: widget.iconSize),
-        icon: Icon(widget.icon),
-        iconSize: widget.iconSize,
-        color: widget.color,
-        tooltip: widget.tooltip,
-        onPressed: () {
-          setState(() {
+      child: Container(
+        width: widget.iconSize,
+        height: widget.iconSize,
+        decoration: BoxDecoration(
+          color: widget.backgroundColor ?? Colors.transparent,
+          borderRadius: BorderRadius.circular(widget.iconSize / 2),
+        ),
+        child: IconButton(
+          padding: EdgeInsets.zero,
+          constraints: BoxConstraints(
+              minWidth: widget.iconSize,
+              minHeight: widget.iconSize,
+              maxWidth: widget.iconSize,
+              maxHeight: widget.iconSize),
+          icon: Icon(widget.icon),
+          iconSize: widget.iconSize,
+          color: widget.color,
+          tooltip: widget.tooltip,
+          onPressed: () {
             setState(() {
-              widget.onTap();
+              setState(() {
+                widget.onTap();
+              });
             });
-          });
-        },
+          },
+        ),
       ),
     );
   }

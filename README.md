@@ -17,10 +17,9 @@ TODO: Rotate expand toolbar.
 
 TODO: A set of icon buttons that can be rotated and expanded.
 
-
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
+Include short and useful examples for package users. Add longer examples
 to `/example` folder.
 
 ```dart
